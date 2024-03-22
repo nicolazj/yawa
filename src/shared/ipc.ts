@@ -1,24 +1,13 @@
-import { BrowserWindow, ipcMain, ipcRenderer } from "electron";
+export type PrefKey = "whisper_model" | "onboarded";
 
-export type Channel = "theme:get" | "theme:update";
-
-export function handle(
-  c: Channel,
-  listener: (event: Electron.IpcMainInvokeEvent, ...args: any[]) => any
-) {
-  return ipcMain.handle(c, listener);
-}
-
-export function invoke(c: Channel, ...args: any[]) {
-  console.log("invoking...", ...args);
-  let res = ipcRenderer.invoke(c, ...args);
-  console.log("invoking result", res);
-  return res;
-}
-
-export function send(wins: BrowserWindow[], c: Channel, ...args: any[]) {
-  console.log("sending", c, ...args);
-  wins.forEach((win) => {
-    win.webContents.send(c, ...args);
-  });
-}
+export type Channel =
+  | "theme_get"
+  | "theme_update"
+  | "pref_get"
+  | "pref_set"
+  | "get_whisper_active_model_name"
+  | "download_whisper_model"
+  | "download_whisper_default_model"
+  | "download_whisper_model_succeeded"
+  | "download_whisper_model_failed"
+  | "download_whisper_model_progress";

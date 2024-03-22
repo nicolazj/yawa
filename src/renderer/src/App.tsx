@@ -1,16 +1,12 @@
-import { ThemeProvider } from "./components/theme-provider";
+import { Dropfile } from "./components/drop-file";
 import { TitleBar } from "./components/title-bar";
-import { Button } from "./shadcn/ui/button";
 
-function App(): JSX.Element {
+export function App(): JSX.Element {
   return (
-    <ThemeProvider>
-      <div className="flex-1 flex-col">
-        <TitleBar />
-        <Button>asd</Button>
-      </div>
-    </ThemeProvider>
+    <div className="flex-1 flex-col">
+      <TitleBar />
+
+      <Dropfile />
+    </div>
   );
 }
-
-export default App;

@@ -49,7 +49,7 @@ export function ThemeProvider({
   }, [theme]);
 
   useEffect(() => {
-    return receive("theme:update", (_event,theme) => {
+    return receive("theme_update", (_event,theme) => {
       setTheme(theme)
     });
   }, []);
