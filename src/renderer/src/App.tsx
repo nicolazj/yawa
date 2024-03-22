@@ -1,10 +1,15 @@
+import { ThemeProvider } from "./components/theme-provider";
+import { TitleBar } from "./components/title-bar";
 import { Button } from "./shadcn/ui/button";
 
 function App(): JSX.Element {
   return (
-    <div className="flex-1 border-2 border-yellow-500 ">
-      <Button >asd</Button>
-    </div>
+    <ThemeProvider>
+      <div className="flex-1 flex-col">
+        <TitleBar />
+        <Button>asd</Button>
+      </div>
+    </ThemeProvider>
   );
 }
 
