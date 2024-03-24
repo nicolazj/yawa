@@ -20,9 +20,8 @@ export class Whisper {
   }
   init() {
     // this.registerIpcHandlers()
-    let name = pref.get_whisper_active_model_name()
-    if(!name){
-
+    const name = pref.get_whisper_active_model_name();
+    if (!name) {
     }
   }
 
@@ -37,11 +36,11 @@ export class Whisper {
     logger.debug("transcribing from local");
 
     const model = pref.get_whisper_model_path();
-    logger.debug("with model",model);
+    logger.debug("with model", model);
 
     const { force = true, extra = [], onProgress } = options || {};
     const filename = path.basename(file!, path.extname(file!));
-    const tmpDir = path.dirname(file)
+    const tmpDir = path.dirname(file);
     const outputFile = path.join(tmpDir, filename + ".json");
 
     logger.info(`Trying to transcribe ${file} to ${outputFile}`);

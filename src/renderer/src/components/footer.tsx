@@ -4,13 +4,13 @@ import { useState, useEffect } from "react";
 import { TransQueueItem } from "src/shared/types";
 
 export function Footer() {
-  let [queue, setQueue] = useState<TransQueueItem[]>([]);
+  const [queue, setQueue] = useState<TransQueueItem[]>([]);
   useEffect(() => {
     return receive("queue", (_e, q: TransQueueItem[]) => {
       setQueue(q);
     });
   }, []);
-  let processing = queue.find((t) => t.status === "processing");
+  const processing = queue.find((t) => t.status === "processing");
   return (
     <div className="h-8">
       <div className=" h-full flex flex-col justify-end">

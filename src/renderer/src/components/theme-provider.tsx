@@ -40,7 +40,7 @@ export function ThemeProvider({
       const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
         ? "dark"
         : "light";
-    
+
       root.classList.add(systemTheme);
       return;
     }
@@ -49,8 +49,8 @@ export function ThemeProvider({
   }, [theme]);
 
   useEffect(() => {
-    return receive("theme_update", (_event,theme) => {
-      setTheme(theme)
+    return receive("theme_update", (_event, theme) => {
+      setTheme(theme);
     });
   }, []);
 

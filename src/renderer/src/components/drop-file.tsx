@@ -2,11 +2,11 @@ import { useEffect } from "react";
 
 export function Dropfile() {
   useEffect(() => {
-    let onDragOver = (ev: DragEvent) => {
+    const onDragOver = (ev: DragEvent) => {
       console.log("dragover");
       ev.preventDefault();
     };
-    let onDrop = (ev: DragEvent) => {
+    const onDrop = (ev: DragEvent) => {
       ev.preventDefault();
       if (!ev.dataTransfer) return;
       if (!ev.dataTransfer.files) return;
@@ -21,9 +21,9 @@ export function Dropfile() {
   });
 
   useEffect(() => {
-    let onPaste = (event: ClipboardEvent) => {
+    const onPaste = (event: ClipboardEvent) => {
       event.preventDefault();
-      let paste = event.clipboardData?.getData("text");
+      const paste = event.clipboardData?.getData("text");
       console.log(paste);
     };
     document.addEventListener("paste", onPaste);

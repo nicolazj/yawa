@@ -15,7 +15,7 @@ export class Queue {
   }
 
   private async addTasks(tasks: TransTask[]) {
-    let tq: TransQueueItem[] = tasks.map((t) => ({
+    const tq: TransQueueItem[] = tasks.map((t) => ({
       ...t,
       status: "pending",
       id: id++,
@@ -34,7 +34,7 @@ export class Queue {
   }
 
   private async runTask() {
-    let self = this;
+    const self = this;
     async function worker() {
       while (true) {
         const task = self.pickTask();

@@ -15,8 +15,8 @@ export class WindowManager {
       resizable: false,
       titleBarStyle: "hidden",
       autoHideMenuBar: true,
-      transparent:true,
-      frame:false,
+      transparent: true,
+      frame: false,
       ...(process.platform === "linux" ? { icon } : {}),
       webPreferences: {
         preload: join(__dirname, "../preload/index.js"),

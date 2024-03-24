@@ -25,8 +25,8 @@ class Downloader {
   }
 
   async downloadWhisperModel(name: string) {
-    let model = WHISPER_MODELS_OPTIONS.find((op) => op.name === name)!;
-    let win = this.wm.win;
+    const model = WHISPER_MODELS_OPTIONS.find((op) => op.name === name)!;
+    const win = this.wm.win;
     try {
       await download(win!, model.url, {
         showBadge: true,

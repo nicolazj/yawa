@@ -1,6 +1,5 @@
 import { receive } from "@renderer/ipc";
 import {
-  TableCaption,
   TableHeader,
   TableRow,
   TableHead,
@@ -13,7 +12,7 @@ import { useEffect, useState } from "react";
 import { TransQueueItem } from "src/shared/types";
 
 export function Qeueu() {
-  let [queue, setQueue] = useState<TransQueueItem[]>([]);
+  const [queue, setQueue] = useState<TransQueueItem[]>([]);
   useEffect(() => {
     return receive("queue", (_e, q: TransQueueItem[]) => {
       setQueue(q);

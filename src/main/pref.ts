@@ -17,12 +17,14 @@ class Pref {
     return fs.existsSync(path.join(this.get_whisper_model_folder(), name));
   }
   private get_whisper_fallback_model() {
-    let found = WHISPER_MODELS_OPTIONS.find((model) => this.check_whisper_model_exist(model.name));
+    const found = WHISPER_MODELS_OPTIONS.find((model) =>
+      this.check_whisper_model_exist(model.name)
+    );
     return found?.name;
   }
 
   get_library_path() {
-    let library = path.join(app.getPath("documents"), LIBRARY_PATH_SUFFIX);
+    const library = path.join(app.getPath("documents"), LIBRARY_PATH_SUFFIX);
     fs.ensureDirSync(library);
     return library;
   }
@@ -30,12 +32,12 @@ class Pref {
     return path.join(this.get_library_path(), "models");
   }
   get_whisper_active_model_name() {
-    let model_name = this.get_pref("whisper_model") as string;
+    const model_name = this.get_pref("whisper_model") as string;
     if (model_name && this.check_whisper_model_exist(model_name)) return model_name;
     return this.get_whisper_fallback_model();
   }
   get_whisper_model_path() {
-    let name = this.get_whisper_active_model_name()!;
+    const name = this.get_whisper_active_model_name()!;
     return path.join(this.get_whisper_model_folder(), name);
   }
 

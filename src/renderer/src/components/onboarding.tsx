@@ -2,8 +2,8 @@ import { receive } from "@renderer/ipc";
 import { Progress } from "@renderer/shadcn/ui/progress";
 import { PropsWithChildren, useEffect, useState } from "react";
 
-function OnboardingContent(){
-  let [progress, setProgress] = useState(0);
+function OnboardingContent() {
+  const [progress, setProgress] = useState(0);
   useEffect(() => {
     return receive("download_whisper_model_progress", (_event, data: { progress: number }) => {
       setProgress(data.progress);
@@ -21,12 +21,12 @@ function OnboardingContent(){
 }
 
 export function Onboarding(props: PropsWithChildren<{}>) {
-  let [determined, determinedSet] = useState(false); // -1 undetermined
-  let [onboarded, onboardedSet] = useState(false); // -1 undetermined
+  const [determined, determinedSet] = useState(false); // -1 undetermined
+  const [onboarded, onboardedSet] = useState(false); // -1 undetermined
 
   useEffect(() => {
     async function run() {
-      let onboarded = await window.api.get_pref("onboarded");
+      const onboarded = await window.api.get_pref("onboarded");
       determinedSet(true);
       onboardedSet(!!onboarded);
       if (!onboarded) {
@@ -37,10 +37,8 @@ export function Onboarding(props: PropsWithChildren<{}>) {
     }
     run();
   }, []);
- 
 
   if (!determined) return null;
   if (onboarded) return props.children;
-  return <OnboardingContent />
- 
+  return <OnboardingContent />;
 }
