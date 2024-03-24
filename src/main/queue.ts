@@ -30,6 +30,7 @@ export class Queue {
         return this.queue[i];
       }
     }
+    return undefined;
   }
 
   private async runTask() {
@@ -53,12 +54,10 @@ export class Queue {
 
           task.status = "done";
           send("queue", self.queue);
-
         } catch (e) {
           logger.error("transcribe failed", e);
           task.status = "failed";
           send("queue", self.queue);
-
         }
       }
     }
@@ -70,7 +69,7 @@ export class Queue {
   }
 
   private registerIpcHandlers() {
-    handle("add_tasks", async (event, tasks: TransTask[]) => {
+    handle("add_tasks", async (_event, tasks: TransTask[]) => {
       await this.addTasks(tasks);
     });
   }
