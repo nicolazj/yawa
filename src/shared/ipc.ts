@@ -10,4 +10,6 @@ export type Channel =
   | "download_whisper_default_model"
   | "download_whisper_model_succeeded"
   | "download_whisper_model_failed"
-  | "download_whisper_model_progress";
+  | "download_whisper_model_progress"
+  | "add_tasks"
+  | "queue";

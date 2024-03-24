@@ -14,7 +14,7 @@ class Pref {
     this.store = new ElectronStore();
   }
   private check_whisper_model_exist(name: string) {
-    return fs.existsSync(path.join(this.get_whisper_model_path(), name));
+    return fs.existsSync(path.join(this.get_whisper_model_folder(), name));
   }
   private get_whisper_fallback_model() {
     let found = WHISPER_MODELS_OPTIONS.find((model) => this.check_whisper_model_exist(model.name));
@@ -35,8 +35,8 @@ class Pref {
     return this.get_whisper_fallback_model();
   }
   get_whisper_model_path() {
-    let name = pref.get_whisper_active_model_name()!;
-    return path.join(pref.get_whisper_model_folder(), name);
+    let name = this.get_whisper_active_model_name()!;
+    return path.join(this.get_whisper_model_folder(), name);
   }
 
   get_pref(key: PrefKey) {

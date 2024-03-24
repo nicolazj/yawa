@@ -27,7 +27,7 @@ export class Whisper {
   }
 
   async transcribe(
-    file?: string,
+    file: string,
     options?: {
       force?: boolean;
       extra?: string[];
@@ -37,10 +37,11 @@ export class Whisper {
     logger.debug("transcribing from local");
 
     const model = pref.get_whisper_model_path();
+    logger.debug("with model",model);
 
     const { force = true, extra = [], onProgress } = options || {};
     const filename = path.basename(file!, path.extname(file!));
-    const tmpDir = pref.get_library_path();
+    const tmpDir = path.dirname(file)
     const outputFile = path.join(tmpDir, filename + ".json");
 
     logger.info(`Trying to transcribe ${file} to ${outputFile}`);
@@ -56,14 +57,16 @@ export class Whisper {
       model!,
       "--output-json",
       "--output-txt",
+      "--output-srt",
+      "--output-lrc",
       "--output-file",
       path.join(tmpDir, filename),
       "-pp",
       "--language",
       "auto",
       "--split-on-word",
-      "--max-len",
-      "1",
+      // "--max-len",
+      // "1",
       ...extra,
     ];
 

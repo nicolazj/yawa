@@ -1,27 +1,25 @@
-import { Import } from "lucide-react";
-import { DragEventHandler, useEffect } from "react";
-import { AudioFormats, VideoFormats } from "../../../shared/constants";
+import { useEffect } from "react";
 
 export function Dropfile() {
-  let onDrop: DragEventHandler<HTMLDivElement> = (ev) => {
-    ev.preventDefault();
-    if (!ev.dataTransfer) return;
-    if (!ev.dataTransfer.files) return;
-    console.log(ev.dataTransfer.files);
-    // window.api.addTask({
-    //   type: 'file',
-    //   files: [...ev.dataTransfer.files].map((f) => ({
-    //     path: f.path,
-    //     name: f.name,
-    //     size: f.size,
-    //     type: f.type
-    //   }))
-    // })
-  };
+  useEffect(() => {
+    let onDragOver = (ev: DragEvent) => {
+      console.log("dragover");
+      ev.preventDefault();
+    };
+    let onDrop = (ev: DragEvent) => {
+      ev.preventDefault();
+      if (!ev.dataTransfer) return;
+      if (!ev.dataTransfer.files) return;
+      window.api.add_tasks([...ev.dataTransfer.files].map((f) => ({ path: f.path })));
+    };
+    document.addEventListener("dragover", onDragOver);
+    document.addEventListener("drop", onDrop);
+    return () => {
+      document.removeEventListener("dragover", onDragOver);
+      document.removeEventListener("drop", onDrop);
+    };
+  });
 
-  let onDragOver: DragEventHandler<HTMLDivElement> = (ev) => {
-    ev.preventDefault();
-  };
   useEffect(() => {
     let onPaste = (event: ClipboardEvent) => {
       event.preventDefault();
@@ -32,19 +30,10 @@ export function Dropfile() {
     return () => document.removeEventListener("paste", onPaste);
   }, []);
   return (
-    <div className="p-4 ">
-      <div
-        className="hover:bg-accent w-full h-[200px] border-dashed border mb-8 rounded-lg items-center justify-center flex flex-col gap-2"
-        // onPaste={onPaste}
-        onDrop={onDrop}
-        onDragOver={onDragOver}
-      >
-        <Import />
-        <p className="text-lg">Drop files here</p>
-        <p className="text-xs opacity-50">
-          {`${AudioFormats.join(", ")}  ${VideoFormats.join(", ")}`}
-        </p>
-      </div>
+    <div className="p-4">
+      <p className="opacity-50 text-center text-xs">Or Drag & Drop files to transcribe</p>
+      {/* <p className="text-[10px] opacity-50">{AudioFormats.join(", ")}</p> */}
+      {/* <p className="text-[10px] opacity-50">{VideoFormats.join(", ")}</p> */}
     </div>
   );
 }

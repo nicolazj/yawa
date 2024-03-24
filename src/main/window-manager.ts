@@ -9,12 +9,14 @@ export class WindowManager {
   createWindow() {
     // Create the browser window.
     const mainWindow = new BrowserWindow({
-      width: 600,
+      width: 400,
       height: 400,
       show: false,
       resizable: false,
       titleBarStyle: "hidden",
       autoHideMenuBar: true,
+      transparent:true,
+      frame:false,
       ...(process.platform === "linux" ? { icon } : {}),
       webPreferences: {
         preload: join(__dirname, "../preload/index.js"),
