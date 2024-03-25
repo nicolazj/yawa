@@ -11,6 +11,7 @@ export type TransQueueItem = TransTask & {
 export type WhisperModelInfo = {
   name: string;
   type:string;
+  desc:string;
   available: boolean;
   active: boolean;
   downloading:boolean;

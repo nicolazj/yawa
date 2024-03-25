@@ -4,6 +4,7 @@ import os from "os";
 import { resolve } from "path";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 
+console.log(process.env.PACKAGE_OS_ARCH, os.arch(), os.platform())
 export default defineConfig({
   main: {
     plugins: [

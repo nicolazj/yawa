@@ -4,6 +4,7 @@ import fs from "fs-extra";
 import { TransQueueItem } from "../shared/types";
 import log from "./logger";
 import { ffmpeg } from "./ffmpeg";
+import { youtubedr } from "./youtubedr";
 
 export type Processor = (
   item: TransQueueItem,
@@ -16,8 +17,7 @@ export const processor: Processor = async (item, onProgress) => {
   logger.log("processing task", item);
 
   if (item.link) {
-    // download link
-    item.path = "xxxx";
+    item.path = await youtubedr.autoDownload(item.link);
   }
   const filename = path.basename(item.path!);
   const dirname = path.dirname(item.path!);

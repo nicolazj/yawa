@@ -84,7 +84,7 @@ export const WHISPER_MODELS_OPTIONS = [
     desc: "very slow but amazing accuracy",
   },
   {
-    type: "large",
+    type: "large-v3",
     name: "ggml-large-v3.bin",
     size: "2.9 GB",
     sha: "ad82bf6a9043ceed055076d0fd39f5f186ff8062",

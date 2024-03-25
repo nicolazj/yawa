@@ -11,7 +11,7 @@ export function Openfile() {
   return (
     <Button
       variant={"outline"}
-      className="flex flex-col h-[100px] items-center justify-center gap-2 border-2 rounded"
+      className="text-xs flex flex-col h-[100px] items-center justify-center gap-2 border-2 rounded"
       asChild
     >
       <label>

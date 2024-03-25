@@ -23,9 +23,7 @@ app.whenReady().then(() => {
   theme.init();
   pref.init();
   queue.init();
-fetch('http://localhost:5173/545e6f1d-94a8-4347-ad3c-d6353eb228c6').then(r=>{
-  console.log(r)
-})
+
 
   app.on("activate", function () {
     // On macOS it's common to re-create a window in the app when the

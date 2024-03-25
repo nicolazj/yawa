@@ -27,40 +27,36 @@ export function ManageModels() {
       <SheetTrigger asChild>
         <Button
           variant={"outline"}
-          className="flex flex-col h-[100px] items-center justify-center gap-2 border-2 rounded"
+          className="text-xs flex flex-col h-[100px] items-center justify-center gap-2 border-2 rounded"
         >
           <Cog />
-          Manage models
+          Settings
         </Button>
       </SheetTrigger>
       <SheetContent className="w-[80%]">
         <SheetHeader className="">
           <SheetTitle>Select model</SheetTitle>
-          <div className="flex gap-2 flex-wrap">
-            {models.map((model) => {
-              return (
-                <div
-                  key={model.name}
-                  className="inline-block"
-                  onClick={() => setActiveModel(model.name)}
-                >
-                  <Badge
-                    variant={model.active ? "default" : "outline"}
-                    className="relative h-[30px] flex flex-col justify-center"
-                  >
-                    {model.type}
-                    {model.progress && !model.available ? (
-                      <Progress
-                        value={model.progress}
-                        className="h-[2px] absolute bottom-[2px] mx-auto w-[80%]"
-                      />
-                    ) : null}
-                  </Badge>
-                </div>
-              );
-            })}
-          </div>
         </SheetHeader>
+        <div className="grid grid-cols-2 gap-2 flex-wrap">
+          {models.map((model) => {
+            return (
+              <Badge
+                key={model.name}
+                onClick={() => setActiveModel(model.name)}
+                variant={model.active ? "default" : "outline"}
+                className="relative  h-[30px] flex flex-col justify-center"
+              >
+                {model.type}
+                {model.progress && !model.available ? (
+                  <Progress
+                    value={model.progress}
+                    className="h-[2px] absolute bottom-[2px] mx-auto w-[80%]"
+                  />
+                ) : null}
+              </Badge>
+            );
+          })}
+        </div>
       </SheetContent>
     </Sheet>
   );

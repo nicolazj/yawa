@@ -1,12 +1,14 @@
 import { receive } from "@renderer/ipc";
 import { Progress } from "@renderer/shadcn/ui/progress";
 import { PropsWithChildren, useEffect, useState } from "react";
+import { WhisperModelInfo } from "src/shared/types";
 
 function OnboardingContent() {
   const [progress, setProgress] = useState(0);
   useEffect(() => {
-    return receive("download_whisper_model_progress", (_event, data: { progress: number }) => {
-      setProgress(data.progress);
+    return receive("whisper_models_update", (_event, models: WhisperModelInfo[]) => {
+      let downloading = models.find((m) => m.downloading)!;
+      setProgress(downloading.progress ?? 0);
     });
   }, []);
   return (
@@ -21,21 +23,17 @@ function OnboardingContent() {
 }
 
 export function Onboarding(props: PropsWithChildren<{}>) {
-  const [determined, determinedSet] = useState(false); // -1 undetermined
-  const [onboarded, onboardedSet] = useState(false); // -1 undetermined
+  const [determined, determinedSet] = useState(false); 
+  const [onboarded, onboardedSet] = useState(false); 
 
   useEffect(() => {
     async function run() {
-      const onboarded = await window.api.get_pref("onboarded");
+      const model = await window.api.get_whisper_active_model_name()
       determinedSet(true);
-      onboardedSet(!!onboarded);
-      if (!onboarded) {
-        await window.api.download_whisper_default_model();
-      }
-      await window.api.set_pref("onboarded", true);
-      onboardedSet(true);
+      onboardedSet(!!model);
     }
     run();
+
   }, []);
 
   if (!determined) return null;
