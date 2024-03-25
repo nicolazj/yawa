@@ -17,9 +17,9 @@ let recorder: MediaRecorder;
 let chunks = [] as any;
 export function NewRecording() {
   let [recording, recordingSet] = useState(false);
-  let audioRef = useRef<HTMLAudioElement>(null);
   let startRecording = () => {
     recordingSet(true);
+    // @ts-ignore
     window.navigator.getUserMedia(
       { video: false, audio: true },
       (stream) => {
