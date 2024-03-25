@@ -1,13 +1,13 @@
 import { Button } from "@renderer/shadcn/ui/button";
 import {
-  SheetTrigger,
+  Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
-  Sheet,
+  SheetTrigger,
 } from "@renderer/shadcn/ui/sheet";
 import { Mic } from "lucide-react";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 function errorCallback(e) {
   console.log("Error", e);
