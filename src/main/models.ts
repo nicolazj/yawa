@@ -61,6 +61,7 @@ class Models {
     const model = WHISPER_MODELS_OPTIONS.find((op) => op.name === name)!;
     const win = this.wm.win;
     const self = this;
+    logger.log("started downloading model", name);
     await download(win!, model.url, {
       showBadge: true,
       overwrite: true,

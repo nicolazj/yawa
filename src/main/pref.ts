@@ -6,18 +6,14 @@ import { LIBRARY_PATH_SUFFIX } from "../shared/constants";
 import { PrefKey } from "../shared/ipc";
 import { handle } from "./ipc";
 import log from "./logger";
-import { WindowManager, wm } from "./window-manager";
-
-
 
 const logger = log.scope("pref");
 class Pref {
   private store: ElectronStore;
-  constructor(private wm: WindowManager) {
+  constructor() {
     this.store = new ElectronStore();
-   
   }
- 
+
   get_library_path() {
     const library = path.join(app.getPath("documents"), LIBRARY_PATH_SUFFIX);
     fs.ensureDirSync(library);
@@ -29,7 +25,6 @@ class Pref {
     return library;
   }
 
-
   get_pref(key: PrefKey) {
     return this.store.get(key);
   }
@@ -38,10 +33,8 @@ class Pref {
     return this.store.set(key, value);
   }
 
-
   async init() {
     this.register_handlers();
-    
   }
 
   register_handlers() {
@@ -51,8 +44,7 @@ class Pref {
     handle("pref_set", (_e, key: PrefKey, value: any) => {
       return this.set_pref(key, value);
     });
- 
   }
 }
 
-export const pref = new Pref(wm);
+export const pref = new Pref();
