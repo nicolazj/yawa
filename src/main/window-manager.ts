@@ -2,9 +2,15 @@ import { BrowserWindow, shell } from "electron";
 import icon from "../../resources/icon.png?asset";
 import { join } from "path";
 import { is } from "@electron-toolkit/utils";
+import { handle } from "./ipc";
+import { pref } from "./pref";
 
 export class WindowManager {
   public win: BrowserWindow | undefined;
+  init(){
+    this.createWindow()
+   
+  }
 
   createWindow() {
     // Create the browser window.

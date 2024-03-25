@@ -25,9 +25,12 @@ export const api = {
   set_active_whisper_model(name: string) {
     return invoke("whisper_models_set_active", name);
   },
-  save_recording(blob:ArrayBuffer){
-    return invoke('save_recording',blob)
-  }
+  save_recording(blob: ArrayBuffer) {
+    return invoke("save_recording", blob);
+  },
+  open_library_folder() {
+    return invoke("open_library_folder");
+  },
 };
 
 export type API = typeof api;

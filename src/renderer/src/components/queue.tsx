@@ -48,7 +48,7 @@ export function Qeueu() {
                 {queue.map((item) => {
                   return (
                     <TableRow key={item.id}>
-                      <TableCell className="text-left ">{getFilename(item)}</TableCell>
+                      <TableCell className="text-left whitespace-pre-wrap break-all">{getFilename(item)}</TableCell>
                       <TableCell className="text-right">{item.status}</TableCell>
                     </TableRow>
                   );

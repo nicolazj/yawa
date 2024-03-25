@@ -7,7 +7,7 @@ import { TitleBar } from "./components/title-bar";
 import { Qeueu } from "./components/queue";
 import { Toaster } from "./shadcn/ui/sonner";
 import { Youtube } from "./components/youtube";
-import { Button } from "./shadcn/ui/button";
+import { OpenFolder } from "./components/open-folder";
 
 export function App() {
   return (
@@ -20,18 +20,12 @@ export function App() {
           <NewRecording />
           <Qeueu />
           <ManageModels />
-          <Button
-          variant={"outline"}
-          className="text-xs text-accent flex flex-col h-[100px] items-center justify-center gap-2 border-2 rounded"
-        >
-         coming 
-         <br />soon...
-        </Button>
+          <OpenFolder />
         </div>
         <Dropfile />
       </div>
       <Footer />
-      <Toaster/>
+      <Toaster />
     </div>
   );
 }

@@ -11,4 +11,5 @@ export type Channel =
   | "whisper_models_get"
   | "whisper_models_update"
   | "whisper_models_set_active"
-  |"save_recording";
+  | "save_recording"
+  | "open_library_folder";

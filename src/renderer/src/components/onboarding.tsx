@@ -3,7 +3,7 @@ import { Progress } from "@renderer/shadcn/ui/progress";
 import { PropsWithChildren, useEffect, useState } from "react";
 import { WhisperModelInfo } from "src/shared/types";
 
-function OnboardingContent() {
+function OnboardingContent({ onLoaded }: { onLoaded: () => void }) {
   const [progress, setProgress] = useState(0);
   useEffect(() => {
     return receive("whisper_models_update", (_event, models: WhisperModelInfo[]) => {
@@ -11,11 +11,21 @@ function OnboardingContent() {
       setProgress(downloading.progress ?? 0);
     });
   }, []);
+  useEffect(() => {
+    let timer = setInterval(() => {
+      window.api.get_pref("onboarded").then((onboarded) => {
+        if (onboarded) {
+          onLoaded();
+        }
+      });
+    });
+    return () => clearInterval(timer);
+  }, []);
   return (
     <div className="flex-1 flex p-4 flex-col items-center justify-center gap-4">
       <h1 className="text-lg">Welcome to Yawa</h1>
-      <p className="text-xs opacity-50">
-        Sit tight and relax, we are downloading essential files for this wounderful tool to work.
+      <p className="text-xs opacity-50 text-center">
+        Sit tight and relax, <br /> We are loading essential files for this wounderful tool to work.
       </p>
       <Progress value={progress} className="m-4" />
     </div>
@@ -23,20 +33,23 @@ function OnboardingContent() {
 }
 
 export function Onboarding(props: PropsWithChildren<{}>) {
-  const [determined, determinedSet] = useState(false); 
-  const [onboarded, onboardedSet] = useState(false); 
+  const [determined, determinedSet] = useState(false);
+  const [onboarded, onboardedSet] = useState(false);
 
   useEffect(() => {
-    async function run() {
-      const model = await window.api.get_whisper_active_model_name()
+    window.api.get_pref("onboarded").then((onboarded) => {
       determinedSet(true);
-      onboardedSet(!!model);
-    }
-    run();
-
+      onboardedSet(!!onboarded);
+    });
   }, []);
 
   if (!determined) return null;
   if (onboarded) return props.children;
-  return <OnboardingContent />;
+  return (
+    <OnboardingContent
+      onLoaded={() => {
+        onboardedSet(true);
+      }}
+    />
+  );
 }

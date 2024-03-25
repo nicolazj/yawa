@@ -4,8 +4,8 @@ import path from "path";
 import url from "url";
 import { PROCESS_TIMEOUT } from "../shared/constants";
 import log from "./logger";
-import { pref } from "./pref";
 import { WhisperOutputType } from "../shared/types";
+import { models } from "./models";
 
 const __filename = url.fileURLToPath(import.meta.url);
 
@@ -20,7 +20,6 @@ export class Whisper {
   }
   init() {
     // this.registerIpcHandlers()
-   
   }
 
   async transcribe(
@@ -33,7 +32,7 @@ export class Whisper {
   ): Promise<Partial<WhisperOutputType>> {
     logger.debug("transcribing from local");
 
-    const model = pref.get_whisper_active_model_path();
+    const model = models.get_whisper_active_model_path();
     logger.debug("with model", model);
 
     const { force = true, extra = [], onProgress } = options || {};

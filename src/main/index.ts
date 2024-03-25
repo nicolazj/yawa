@@ -4,6 +4,8 @@ import { theme } from "./theme";
 import { wm } from "./window-manager";
 import { pref } from "./pref";
 import { queue } from "./queue";
+import { misc } from "./misc";
+import { models } from "./models";
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -19,11 +21,13 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window);
   });
 
-  wm.createWindow();
+  wm.init();
   theme.init();
   pref.init();
-  queue.init();
+  models.init();
 
+  queue.init();
+  misc.init();
 
   app.on("activate", function () {
     // On macOS it's common to re-create a window in the app when the
