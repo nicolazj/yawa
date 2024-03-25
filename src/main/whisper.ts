@@ -20,9 +20,7 @@ export class Whisper {
   }
   init() {
     // this.registerIpcHandlers()
-    const name = pref.get_whisper_active_model_name();
-    if (!name) {
-    }
+   
   }
 
   async transcribe(
@@ -35,7 +33,7 @@ export class Whisper {
   ): Promise<Partial<WhisperOutputType>> {
     logger.debug("transcribing from local");
 
-    const model = pref.get_whisper_model_path();
+    const model = pref.get_whisper_active_model_path();
     logger.debug("with model", model);
 
     const { force = true, extra = [], onProgress } = options || {};

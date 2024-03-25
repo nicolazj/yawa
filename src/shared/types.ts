@@ -7,6 +7,15 @@ export type TransQueueItem = TransTask & {
   progress?: number;
   status: "pending" | "processing" | "done" | "failed";
 };
+
+export type WhisperModelInfo = {
+  name: string;
+  type:string;
+  available: boolean;
+  active: boolean;
+  downloading:boolean;
+  progress?: number;
+};
 export type WhisperOutputType = {
   engine?: string;
   model: {

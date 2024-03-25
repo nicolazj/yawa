@@ -6,10 +6,9 @@ export type Channel =
   | "pref_get"
   | "pref_set"
   | "get_whisper_active_model_name"
-  | "download_whisper_model"
-  | "download_whisper_default_model"
-  | "download_whisper_model_succeeded"
-  | "download_whisper_model_failed"
-  | "download_whisper_model_progress"
-  | "add_tasks"
-  | "queue";
+  | "tasks_add"
+  | "queue_update"
+  | "whisper_models_get"
+  | "whisper_models_update"
+  | "whisper_models_set_active"
+  |"save_recording";

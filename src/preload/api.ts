@@ -1,5 +1,5 @@
 import { PrefKey } from "../shared/ipc";
-import { TransTask } from "../shared/types";
+import { TransTask, WhisperModelInfo } from "../shared/types";
 import { invoke } from "./ipc";
 
 // Custom APIs for renderer
@@ -16,12 +16,18 @@ export const api = {
   get_whisper_active_model_name: () => {
     return invoke("get_whisper_active_model_name");
   },
-  download_whisper_default_model: () => {
-    return invoke("download_whisper_default_model");
-  },
   add_tasks: (tasks: TransTask[]) => {
-    return invoke("add_tasks", tasks);
+    return invoke("tasks_add", tasks);
   },
+  get_whisper_models(): Promise<WhisperModelInfo[]> {
+    return invoke("whisper_models_get");
+  },
+  set_active_whisper_model(name: string) {
+    return invoke("whisper_models_set_active", name);
+  },
+  save_recording(blob:ArrayBuffer){
+    return invoke('save_recording',blob)
+  }
 };
 
 export type API = typeof api;

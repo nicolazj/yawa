@@ -6,7 +6,7 @@ import { TransQueueItem } from "src/shared/types";
 export function Footer() {
   const [queue, setQueue] = useState<TransQueueItem[]>([]);
   useEffect(() => {
-    return receive("queue", (_e, q: TransQueueItem[]) => {
+    return receive("queue_update", (_e, q: TransQueueItem[]) => {
       setQueue(q);
     });
   }, []);

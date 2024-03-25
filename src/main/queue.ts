@@ -2,7 +2,9 @@ import log from "./logger";
 import { TransQueueItem, TransTask } from "../shared/types";
 import { handle, send } from "./ipc";
 import { processor } from "./processor";
-
+import fs from "fs-extra";
+import { pref } from "./pref";
+import path from "path";
 const logger = log.scope("queue");
 
 let id = 0;
@@ -43,21 +45,21 @@ export class Queue {
         }
 
         task.status = "processing";
-        send("queue", self.queue);
+        send("queue_update", self.queue);
 
         try {
           await processor(task, (progress) => {
             // wm.win?.webContents.send(`transcribe-progress-${task.id}`, progress);
             task.progress = progress;
-            send("queue", self.queue);
+            send("queue_update", self.queue);
           });
 
           task.status = "done";
-          send("queue", self.queue);
+          send("queue_update", self.queue);
         } catch (e) {
           logger.error("transcribe failed", e);
           task.status = "failed";
-          send("queue", self.queue);
+          send("queue_update", self.queue);
         }
       }
     }
@@ -69,8 +71,17 @@ export class Queue {
   }
 
   private registerIpcHandlers() {
-    handle("add_tasks", async (_event, tasks: TransTask[]) => {
+    handle("tasks_add", async (_event, tasks: TransTask[]) => {
       await this.addTasks(tasks);
+    });
+    handle("save_recording", async (_event, ab: ArrayBuffer) => {
+      let p = path.join(pref.get_library_recording_path(), `${Date.now()}.webm`);
+      fs.writeFileSync(p, Buffer.from(ab));
+      this.addTasks([
+        {
+          path: p,
+        },
+      ]);
     });
   }
 }
