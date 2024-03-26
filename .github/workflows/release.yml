@@ -32,8 +32,6 @@ jobs:
         with:
           version: 8
 
-      - name: Set env
-        run:
       - name: Install Dependencies
         run: pnpm install
 
