@@ -5,9 +5,8 @@ import { is } from "@electron-toolkit/utils";
 
 export class WindowManager {
   public win: BrowserWindow | undefined;
-  init(){
-    this.createWindow()
-   
+  init() {
+    this.createWindow();
   }
 
   createWindow() {
@@ -17,10 +16,10 @@ export class WindowManager {
       height: 400,
       show: false,
       resizable: false,
-      titleBarStyle: "hidden",
+      titleBarStyle: process.platform === "darwin" ? "hidden" : "default",
       autoHideMenuBar: true,
       transparent: true,
-      frame: false,
+      frame: process.platform === "darwin" ? false : true,
       ...(process.platform === "linux" ? { icon } : {}),
       webPreferences: {
         preload: join(__dirname, "../preload/index.js"),

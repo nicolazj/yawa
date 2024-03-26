@@ -1,5 +1,5 @@
 import { app } from "electron";
-import ElectronStore from "electron-store";
+import settings from 'electron-settings';
 import fs from "fs-extra";
 import path from "path";
 import { LIBRARY_PATH_SUFFIX } from "../shared/constants";
@@ -9,9 +9,7 @@ import log from "./logger";
 
 const logger = log.scope("pref");
 class Pref {
-  private store: ElectronStore;
   constructor() {
-    this.store = new ElectronStore();
   }
 
   get_library_path() {
@@ -26,11 +24,12 @@ class Pref {
   }
 
   get_pref(key: PrefKey) {
-    return this.store.get(key);
+    logger.log("get_setting", key);
+    return settings.getSync(key) as string;
   }
   set_pref(key: PrefKey, value: any) {
     logger.log("set_setting", key, value);
-    return this.store.set(key, value);
+    return settings.setSync(key, value);
   }
 
   async init() {
